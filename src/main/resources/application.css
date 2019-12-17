@@ -1,0 +1,34 @@
+.highscores {
+    -fx-font-size: 25px;
+    -fx-font-family: Impact;
+}
+
+.alertDialog {
+    -fx-font-size: 15px;
+    -fx-font-family: Impact;
+    -fx-border-radius: 4px;
+    -fx-background: rgba(22, 230, 137, 1);
+    -fx-color: #fff;
+    -fx-width: 500px;
+}
+
+.bitButtons {
+    -fx-background-color: Transparent;
+    -fx-text-align: center;
+    -fx-font-size: 20px;
+    -fx-padding: 8px;
+    -fx-font-family: Impact;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 6, 6, 0, 0);
+
+}
+
+.bitButtons:hover {
+    -fx-background-color: #c40064;
+    -fx-font-size: 25px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 4, 4, 0, 0);
+}
+
+.settings-label {
+    -fx-font-size: 25px;
+    -fx-font-family: Impact;
+}

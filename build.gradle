@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    }
+}
+
+
+plugins {
+    id 'java'
+}
+apply plugin: 'org.springframework.boot'
+
+group 'JavaFX'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot', version: '2.2.1.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.6.RELEASE'
+    // https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
+    //compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '7.2.2.jre8'
+    runtime group: 'com.h2database', name: 'h2', version: '1.4.200'
+
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.chiknas.application.Main'
+        )
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+        }
+    }
+}
+
+task invade(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.chiknas.application.Main'
+}
