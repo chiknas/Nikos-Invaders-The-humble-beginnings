@@ -4,7 +4,10 @@ RnD project to get the feeling of JavaFX and Javackager to deploy a self contain
 
 <h3>Controls:</h3>
 
-To be implemented...
+LEFT and RIGHT arrows to move your character  
+SPACE BAR to fire at the enemies  
+CTRL to fire a cannon ball  
+ESC to go back to the main menu at any time  
 
 <h3>DEMPOYMENT:<h3>
 
