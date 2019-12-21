@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,6 +40,9 @@ public class Main extends Application {
     stage.getIcons().add(new Image(getClass().getResource("/gameIcons/logo.jpg").toExternalForm()));
     stage.setTitle("Nikos Invaders");
     stage.setResizable(false);
+    stage.setFullScreen(true);
+    stage.setFullScreenExitHint("Use F12 to enable/disable full screen mode.");
+    stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     stage.setWidth(1280d);
     stage.setHeight(1000d);
     navigateMainMenu();
@@ -63,6 +67,8 @@ public class Main extends Application {
     scene.setOnKeyPressed(event -> {
       if (KeyCode.ESCAPE.equals(event.getCode())) {
         navigateMainMenu();
+      }else if(KeyCode.F12.equals(event.getCode())){
+        stage.setFullScreen(!stage.isFullScreen());
       }
     });
   }
@@ -73,15 +79,12 @@ public class Main extends Application {
   public static void navigateGame() {
     try {
       Parent game = FXMLLoader.load(Main.class.getResource("/game.fxml"));
-      CustomScene gameScene = new CustomScene(game);
       String image = Main.class.getResource("/gameIcons/background.png").toExternalForm();
       game.setStyle("-fx-background-image: url('" + image + "');" +
           "-fx-background-position: center; " +
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
-      //game.setStyle("-fx-background-color: black;");
-      gameScene.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
-      setScene(gameScene);
+      setScene(game);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -95,10 +98,7 @@ public class Main extends Application {
           "-fx-background-position: center; " +
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
-      CustomScene scene = new CustomScene(root);
-      scene.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
-      initiliseApplicationKeyListener(scene);
-      stage.setScene(scene);
+      setScene(root);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -107,14 +107,12 @@ public class Main extends Application {
   public static void navigateLeaderboard() {
     try {
       Parent leaderBoard = FXMLLoader.load(Main.class.getResource("/leaderboard.fxml"));
-      CustomScene leaderBoardScene = new CustomScene(leaderBoard);
       String image = Main.class.getResource("/images/Leaderboard.png").toExternalForm();
       leaderBoard.setStyle("-fx-background-image: url('" + image + "');" +
           "-fx-background-position: center; " +
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
-      leaderBoardScene.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
-      setScene(leaderBoardScene);
+      setScene(leaderBoard);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -129,14 +127,20 @@ public class Main extends Application {
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
       settings.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
-      setScene(new CustomScene(settings));
+      setScene(settings);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private static void setScene(Scene scene) {
-    initiliseApplicationKeyListener(scene);
-    stage.setScene(scene);
+  private static void setScene(Parent parent) {
+    if(stage.getScene() != null){
+      stage.getScene().setRoot(parent);
+    }else{
+      CustomScene scene = new CustomScene(parent);
+      scene.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
+      initiliseApplicationKeyListener(scene);
+      stage.setScene(scene);
+    }
   }
 }
