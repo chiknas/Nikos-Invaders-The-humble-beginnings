@@ -1,5 +1,6 @@
 .highscores {
-    -fx-font-size: 25px;
+    -fx-text-fill: white;
+    -fx-font-size: 35px;
     -fx-font-family: Impact;
 }
 

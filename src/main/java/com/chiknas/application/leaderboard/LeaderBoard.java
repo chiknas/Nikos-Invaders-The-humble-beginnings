@@ -37,11 +37,11 @@ public class LeaderBoard implements Initializable {
       if(rowIndex == 9){
         break;
       }
-      Label player = new Label(highScore.getPlayer());
+      Label player = new Label(rowIndex + 1 + ".  " + highScore.getPlayer());
       player.getStyleClass().add("highscores");
       Label score = new Label(String.valueOf(highScore.getScore()));
       score.getStyleClass().add("highscores");
-      highscore.add(player, 0, rowIndex);
+      highscore.add( player, 0, rowIndex);
       highscore.add(score, 1, rowIndex);
       rowIndex++;
     }

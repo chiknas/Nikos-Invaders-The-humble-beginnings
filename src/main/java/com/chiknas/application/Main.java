@@ -105,7 +105,7 @@ public class Main extends Application {
   public static void navigateLeaderboard() {
     try {
       Parent leaderBoard = FXMLLoader.load(Main.class.getResource("/leaderboard.fxml"));
-      String image = Main.class.getResource("/images/Leaderboard.png").toExternalForm();
+      String image = Main.class.getResource("/images/settings-background.png").toExternalForm();
       leaderBoard.setStyle("-fx-background-image: url('" + image + "');" +
           "-fx-background-position: center; " +
           "-fx-background-size: cover; " +
