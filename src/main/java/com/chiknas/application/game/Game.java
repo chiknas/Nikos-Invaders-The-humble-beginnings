@@ -1,26 +1,17 @@
 package com.chiknas.application.game;
 
+import com.chiknas.application.HighScore;
 import com.chiknas.application.Main;
 import com.chiknas.application.components.CustomAlert;
 import com.chiknas.application.database.HighScoreUCI;
-import com.chiknas.application.HighScore;
-import com.chiknas.application.game.entities.Bullet;
-import com.chiknas.application.game.entities.CannonBullet;
-import com.chiknas.application.game.entities.Enemy;
-import com.chiknas.application.game.entities.Explosion;
-import com.chiknas.application.game.entities.PowerUp;
-import com.chiknas.application.game.entities.Spaceship;
+import com.chiknas.application.game.entities.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -33,11 +24,7 @@ import javax.sound.sampled.FloatControl;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -70,8 +57,8 @@ public class Game implements Initializable {
   @FXML
   private Label cannonBullet3;
 
-  public static final int canvasMaxWidth = 1280 - Spaceship.size;
-  public static final int canvasMaxHeight = 1000 - Spaceship.size - 50;
+  public static int canvasMaxWidth;
+  public static int canvasMaxHeight;
 
   private AnimationTimer animationTimer;
   private Clip music;
@@ -96,11 +83,15 @@ public class Game implements Initializable {
   public int secondsToGenerateEnemy;
 
 
-  final Set<KeyCode> pressedKeys = new HashSet<KeyCode>();
-
+  final Set<KeyCode> pressedKeys = new HashSet();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    canvasMaxWidth = (int) (Main.stageWidth - Spaceship.size);
+    canvasMaxHeight = (int) (Main.stageHeight - Spaceship.size - 50);
+    canvas.setHeight(Main.stageHeight);
+    canvas.setWidth(Main.stageWidth);
+
     gc = canvas.getGraphicsContext2D();
 
     //start the jam!
@@ -172,15 +163,13 @@ public class Game implements Initializable {
   }
 
   private void calculateDamage() {
-    enemies.forEach(enemy -> {
-      bullets.forEach(bullet -> {
-        if (bullet.getPositionY() <= enemy.getPositionY() + Enemy.size
-            && bullet.getPositionX() > enemy.getPositionX() && bullet.getPositionX() < enemy.getPositionX() + Enemy.size) {
-          bullet.hit();
-          enemy.damage(Bullet.damage);
-        }
-      });
-    });
+    enemies.forEach(enemy -> bullets.forEach(bullet -> {
+      if (bullet.getPositionY() <= enemy.getPositionY() + Enemy.size
+          && bullet.getPositionX() > enemy.getPositionX() && bullet.getPositionX() < enemy.getPositionX() + Enemy.size) {
+        bullet.hit();
+        enemy.damage(Bullet.damage);
+      }
+    }));
   }
 
   private void loseHealth() {

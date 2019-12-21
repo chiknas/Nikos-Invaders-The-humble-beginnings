@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chiknas.application.game.Game">
-   <children>
-      <Canvas fx:id="canvas" height="1000.0" onKeyPressed="#onButtonPress" onKeyReleased="#onButtonRelease" width="1280.0" />
-      <Label layoutX="1117.0" layoutY="25.0" prefHeight="35.0" prefWidth="127.0" styleClass="highscores" text="Score:" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="score" layoutX="1117.0" layoutY="68.0" prefHeight="35.0" prefWidth="149.0" styleClass="highscores" text="000000000" textFill="WHITE" />
-      <Label fx:id="health1" prefHeight="35.0" prefWidth="35.0"   layoutX="43.0" layoutY="43.0" pickOnBounds="true"  />
-      <Label fx:id="health2" prefHeight="35.0" prefWidth="35.0" layoutX="103.0" layoutY="43.0" pickOnBounds="true"  />
-      <Label fx:id="health3" prefHeight="35.0" prefWidth="35.0" layoutX="163.0" layoutY="43.0" pickOnBounds="true"  />
-      <Label fx:id="cannonBullet1" prefHeight="35.0" prefWidth="35.0"   layoutX="43.0" layoutY="143.0" pickOnBounds="true"  />
-      <Label fx:id="cannonBullet2" prefHeight="35.0" prefWidth="35.0" layoutX="103.0" layoutY="143.0" pickOnBounds="true"  />
-      <Label fx:id="cannonBullet3" prefHeight="35.0" prefWidth="35.0" layoutX="163.0" layoutY="143.0" pickOnBounds="true"  />
-   </children>
-</AnchorPane>
+<StackPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.chiknas.application.game.Game">
+   <Canvas fx:id="canvas" onKeyPressed="#onButtonPress" onKeyReleased="#onButtonRelease"/>
+   <Group StackPane.alignment="TOP_RIGHT">
+   <Label prefHeight="35.0" prefWidth="127.0" styleClass="highscores" text="Score:" textFill="WHITE">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Label>
+   <Label fx:id="score" layoutY="50.0" prefHeight="35.0" prefWidth="149.0" styleClass="highscores" text="000000000"
+          textFill="WHITE"/>
+      <StackPane.margin>
+         <Insets right="25.0" top="25.0"/>
+      </StackPane.margin>
+   </Group>
+   <Group StackPane.alignment="TOP_LEFT">
+   <Label fx:id="health1" layoutX="43.0" layoutY="43.0" prefHeight="35.0" prefWidth="35.0"/>
+   <Label fx:id="health2" layoutX="103.0" layoutY="43.0" prefHeight="35.0" prefWidth="35.0"/>
+   <Label fx:id="health3" layoutX="163.0" layoutY="43.0" prefHeight="35.0" prefWidth="35.0"/>
+   <Label fx:id="cannonBullet1" layoutX="43.0" layoutY="143.0" prefHeight="35.0" prefWidth="35.0"/>
+   <Label fx:id="cannonBullet2" layoutX="103.0" layoutY="143.0" prefHeight="35.0" prefWidth="35.0"/>
+   <Label fx:id="cannonBullet3" layoutX="163.0" layoutY="143.0" prefHeight="35.0" prefWidth="35.0"/>
+      <StackPane.margin>
+         <Insets left="25.0" top="25.0"/>
+      </StackPane.margin>
+   </Group>
+</StackPane>

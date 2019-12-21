@@ -26,6 +26,8 @@ import java.util.Map;
 public class Main extends Application {
 
   public static ConfigurableApplicationContext run;
+  public static Double stageWidth;
+  public static Double stageHeight;
 
   private static Stage stage;
   public static Map<String, String> settingsMap = new HashMap<String, String>() {{
@@ -45,6 +47,11 @@ public class Main extends Application {
     stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     navigateMainMenu();
     primaryStage.show();
+    //keep track of stage sizes to use for the canvas in the game
+    stageHeight = stage.getHeight();
+    stageWidth = stage.getWidth();
+    stage.widthProperty().addListener((obs, oldVal, newVal) -> stageWidth = (Double) newVal);
+    stage.heightProperty().addListener((obs, oldVal, newVal) -> stageHeight = (Double) newVal);
     run = SpringApplication.run(Main.class);
   }
 
