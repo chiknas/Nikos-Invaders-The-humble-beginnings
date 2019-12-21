@@ -43,8 +43,6 @@ public class Main extends Application {
     stage.setFullScreen(true);
     stage.setFullScreenExitHint("Use F12 to enable/disable full screen mode.");
     stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-    stage.setWidth(1280d);
-    stage.setHeight(1000d);
     navigateMainMenu();
     primaryStage.show();
     run = SpringApplication.run(Main.class);
