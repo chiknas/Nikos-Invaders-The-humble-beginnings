@@ -31,7 +31,7 @@ public class LeaderBoard implements Initializable {
     //backButton
     backButton.setGraphic(new ImageView(new Image(
         getClass().getResource("/gameIcons/back-button.png").toExternalForm(), 100, 100, true, true)));
-    backButton.onMouseClickedProperty().setValue(event -> Main.navigateMainMenu());
+    backButton.onMouseClickedProperty().setValue(event -> Main.navigateMainMenu(false));
     int rowIndex = 0;
     for (HighScore highScore : top9Highscores) {
       if(rowIndex == 9){

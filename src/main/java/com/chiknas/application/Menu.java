@@ -30,15 +30,15 @@ public class Menu implements Initializable {
   private Button quit;
 
   public void buttonGame(ActionEvent event) {
-    Main.navigateGame();
+    Main.navigateGame(false);
   }
 
   public void buttonLeaderBoard(ActionEvent event) {
-    Main.navigateLeaderboard();
+    Main.navigateLeaderboard(false);
   }
 
   public void buttonSettings(ActionEvent event) {
-    Main.navigateSettings();
+    Main.navigateSettings(false);
   }
 
   public void buttonQuit(ActionEvent event) {

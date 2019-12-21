@@ -230,7 +230,7 @@ public class Game implements Initializable {
   }
 
   private void backToMainMenu() {
-    Main.navigateMainMenu();
+    Main.navigateMainMenu(false);
   }
 
   //--------------------------------------------------------------- CANVAS DRAWINGS --------------------------------------------------------

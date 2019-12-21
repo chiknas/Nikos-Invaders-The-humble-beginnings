@@ -1,6 +1,9 @@
 package com.chiknas.application;
 
 import com.chiknas.application.components.CustomScene;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -29,6 +33,7 @@ public class Main extends Application {
   public static Double stageWidth;
   public static Double stageHeight;
 
+  private static CustomScene scene;
   private static Stage stage;
   public static Map<String, String> settingsMap = new HashMap<String, String>() {{
     put("difficulty", "Easy");
@@ -45,14 +50,20 @@ public class Main extends Application {
     stage.setFullScreen(true);
     stage.setFullScreenExitHint("Use F12 to enable/disable full screen mode.");
     stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-    navigateMainMenu();
+    stage.setWidth(1200);
+    stage.setHeight(1000);
+    navigateLoading(false);
     primaryStage.show();
     //keep track of stage sizes to use for the canvas in the game
     stageHeight = stage.getHeight();
     stageWidth = stage.getWidth();
     stage.widthProperty().addListener((obs, oldVal, newVal) -> stageWidth = (Double) newVal);
     stage.heightProperty().addListener((obs, oldVal, newVal) -> stageHeight = (Double) newVal);
-    run = SpringApplication.run(Main.class);
+    new Thread(() ->  {
+      run = SpringApplication.run(Main.class);
+      initiliseApplicationKeyListener(scene);
+      navigateMainMenu(true);
+    }).start();
   }
 
 
@@ -71,7 +82,7 @@ public class Main extends Application {
   public static void initiliseApplicationKeyListener(Scene scene) {
     scene.setOnKeyPressed(event -> {
       if (KeyCode.ESCAPE.equals(event.getCode())) {
-        navigateMainMenu();
+        navigateMainMenu(false);
       }else if(KeyCode.F12.equals(event.getCode())){
         stage.setFullScreen(!stage.isFullScreen());
       }
@@ -81,7 +92,21 @@ public class Main extends Application {
 
   //----------------------------------------------------------- NAVIGATION METHODS ---------------------------------------------------------
 
-  public static void navigateGame() {
+  public static void navigateLoading(boolean withTransition) {
+    try {
+      Parent loading = FXMLLoader.load(Main.class.getResource("/loading.fxml"));
+      String image = Main.class.getResource("/images/loading.gif").toExternalForm();
+      loading.setStyle("-fx-background-image: url('" + image + "');" +
+              "-fx-background-position: center; " +
+              "-fx-background-size: cover; " +
+              "-fx-background-repeat: no-repeat;");
+      setScene(loading, withTransition);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void navigateGame(boolean withTransition) {
     try {
       Parent game = FXMLLoader.load(Main.class.getResource("/game.fxml"));
       String image = Main.class.getResource("/gameIcons/background.png").toExternalForm();
@@ -89,13 +114,13 @@ public class Main extends Application {
           "-fx-background-position: center; " +
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
-      setScene(game);
+      setScene(game, withTransition);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  public static void navigateMainMenu() {
+  public static void navigateMainMenu(boolean withTransition) {
     try {
       Parent root = FXMLLoader.load(Main.class.getResource("/menu.fxml"));
       String image = Main.class.getResource("/images/background.png").toExternalForm();
@@ -103,13 +128,13 @@ public class Main extends Application {
           "-fx-background-position: center; " +
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
-      setScene(root);
+      setScene(root, withTransition);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  public static void navigateLeaderboard() {
+  public static void navigateLeaderboard(boolean withTransition) {
     try {
       Parent leaderBoard = FXMLLoader.load(Main.class.getResource("/leaderboard.fxml"));
       String image = Main.class.getResource("/images/settings-background.png").toExternalForm();
@@ -117,13 +142,13 @@ public class Main extends Application {
           "-fx-background-position: center; " +
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
-      setScene(leaderBoard);
+      setScene(leaderBoard, withTransition);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  public static void navigateSettings() {
+  public static void navigateSettings(boolean withTransition) {
     try {
       Parent settings = FXMLLoader.load(Main.class.getResource("/settings.fxml"));
       String image = Main.class.getResource("/images/settings-background.png").toExternalForm();
@@ -132,19 +157,27 @@ public class Main extends Application {
           "-fx-background-size: cover; " +
           "-fx-background-repeat: no-repeat;");
       settings.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
-      setScene(settings);
+      setScene(settings, withTransition);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private static void setScene(Parent parent) {
+  private static void setScene(Parent parent, boolean withTransition) {
     if(stage.getScene() != null){
-      stage.getScene().setRoot(parent);
+      if(withTransition) {
+        Timeline timeline = new Timeline();
+        KeyFrame key = new KeyFrame(Duration.millis(1500),
+                new KeyValue(stage.getScene().getRoot().opacityProperty(), 0));
+        timeline.getKeyFrames().add(key);
+        timeline.setOnFinished((ae) -> stage.getScene().setRoot(parent));
+        timeline.play();
+      }else{
+        stage.getScene().setRoot(parent);
+      }
     }else{
-      CustomScene scene = new CustomScene(parent);
+      scene = new CustomScene(parent);
       scene.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
-      initiliseApplicationKeyListener(scene);
       stage.setScene(scene);
     }
   }
