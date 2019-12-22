@@ -1,9 +1,18 @@
 <h1>Nikos Invaders: The humble beginnings</h1>
 
 RnD project to get the feeling of JavaFX and Javackager to deploy a self contained application to windows, mac and linux machines.
+![menu](readmeImages/menu-priscri.png)
+![game](readmeImages/game-priscri.png)
+![loading](readmeImages/loading_priscri.png)
+![settings](readmeImages/settings-priscri.png)
+![leaderboard](readmeImages/leaderboard-priscri.png)
+
+<h3>Windows installer:</h3>
+You can install the game by downloading the exe installer from [here](executable/bundles/NikosInvaders-v1.2.exe)  
+Required windows version is Windows 10.
 
 <h3>Controls:</h3>
-
+<b> Use F12 to toggle fullscreen mode </b>  
 LEFT and RIGHT arrows to move your character  
 SPACE BAR to fire at the enemies  
 CTRL to fire a cannon ball  

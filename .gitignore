@@ -3,6 +3,8 @@
 build/
 gradle/
 out/
-executable/
+executable/NikosInvaders.html
+executable/NikosInvaders.jnlp
+executable/SpaceInvaders-1.0-SNAPSHOT.jar
 *.db
 
