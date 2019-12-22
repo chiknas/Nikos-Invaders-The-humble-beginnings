@@ -8,7 +8,7 @@ RnD project to get the feeling of JavaFX and Javackager to deploy a self contain
 ![leaderboard](readmeImages/leaderboard-priscri.png)
 
 <h3>Windows installer:</h3>
-You can install the game by downloading the exe installer from [here](executable/bundles/NikosInvaders-v1.2.exe)  
+You can install the game by downloading the exe installer from [here](https://github.com/chiknas/Nikos-Invaders-The-humble-beginnings/raw/master/executable/bundles/NikosInvaders-v1.2.exe)  
 Required windows version is Windows 10.
 
 <h3>Controls:</h3>
