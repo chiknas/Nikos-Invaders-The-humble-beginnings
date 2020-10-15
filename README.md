@@ -8,7 +8,7 @@ RnD project to get the feeling of JavaFX and Javackager to deploy a self contain
 ![leaderboard](readmeImages/leaderboard-priscri.png)
 
 <h3>Windows installer:</h3>
-You can install the game by downloading the exe installer from [here](https://github.com/chiknas/Nikos-Invaders-The-humble-beginnings/raw/master/executable/bundles/NikosInvaders-v1.2.exe)  
+You can install the game by downloading the exe installer from [here|https://github.com/chiknas/Nikos-Invaders-The-humble-beginnings/raw/master/executable/bundles/NikosInvaders-v1.2.exe]
 Required windows version is Windows 10.
 
 <h3>Controls:</h3>
@@ -18,11 +18,11 @@ SPACE BAR to fire at the enemies
 CTRL to fire a cannon ball  
 ESC to go back to the main menu at any time  
 
-<h3>DEMPOYMENT:<h3>
+<h3>DEPLOYMENT:<h3>
 
 <h4>Requirements</h4>
 
-To create an installer for windows we need Inno Setup 5 or above and a windows machine. You can get this [here](http://www.jrsoftware.org/isdl.php). 
+To create an installer for windows we need Inno Setup 5 or above and a windows machine. You can get this [here|http://www.jrsoftware.org/isdl.php]. 
 
 <h4>Procedure</h4>
 
@@ -42,4 +42,4 @@ More info on the javapackager [here](https://docs.oracle.com/javase/8/docs/techn
 
 <h4>Downsides</h4>
 One 'downside' I can find is that to include our custom setup steps we will need to learn a little bit about how .iss work and how we can right our own scripts in these files. But learning a new thing is never a downside right?
-The real downside will be that to build these packages for different OS, using javapackager, we need the OS itself. The workaround would be to use specific tools for windows to build these files, which will be slower and will required more learning.
+The real downside will be that to build these packages for different OS, using javapackager, we need the OS itself. The workaround would be to use specific tools for windows to build these files, which will be slower.
